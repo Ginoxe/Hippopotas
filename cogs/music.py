@@ -117,8 +117,6 @@ class Music(commands.Cog):
 
             
     async def addToQueue(self, ctx, url):  #If song is already playing -> Add the song to the queue
-        # Create a list if it doeesn't exist'
-        
         # Check if member is in a voice channel
         if ctx.author.voice == None:
             await ctx.channel.send('Input after you join a Voice Channel', delete_after=3)
@@ -206,7 +204,6 @@ class Music(commands.Cog):
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
         if member.id == 1316958087114133566:
-            print(before.channel, after.channel)
             if before.channel != None and after.channel == None:
                 self.urlQueues[member.guild.id].clear()
                 self.titleQueues[member.guild.id].clear()
