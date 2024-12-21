@@ -114,7 +114,10 @@ class Music(commands.Cog):
         if message.author != self.bot.user and message.channel.id == self.musicChannels[str(message.guild.id)]:
             await message.delete()
             if 'youtube' in message.content:
-                await self.addToQueue(message, message.content)
+                if 'list=' in message.content:
+                    await message.channel.send("Hippopotas doesn't receive PLAYLIST links!", delete_after=3)
+                else:
+                    await self.addToQueue(message, message.content)
             else:
                 await message.channel.send("Please input a youtube link", delete_after=3)
 
