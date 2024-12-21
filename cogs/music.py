@@ -38,7 +38,7 @@ class Music(commands.Cog):
         load_dotenv()
         self.yt_dl_options = {'format': 'bestaudio/best'}
         self.ytdl = yt_dlp.YoutubeDL(self.yt_dl_options)
-        self.ffmpeg_options = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5','options': '-vn -filter:a "volume=0.03" --no-playlist'}
+        self.ffmpeg_options = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5','options': '-vn -filter:a "volume=0.04"'}
         
         self.musicChannels = load_musicChannels()   # Uses musicChannels.json
         self.musicMessages = load_musicMessages()
