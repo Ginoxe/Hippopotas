@@ -97,7 +97,11 @@ class Music(commands.Cog):
             self.nowPlaying[ctx.guild.id] = title
             await self.updateEmbed(ctx)
             
-            self.voice_clients[ctx.guild.id].play(player, after=lambda e: asyncio.run_coroutine_threadsafe(self.play(ctx), self.bot.loop))
+            try:
+                self.voice_clients[ctx.guild.id].play(player, after=lambda e: asyncio.run_coroutine_threadsafe(self.play(ctx), self.bot.loop))
+            except:
+                await ctx.channel.send(f'Error Occured while playing **{self.nowPlaying[ctx.guild.id]}**, Skipping to next song')
+                await self.play(ctx)
             
         else:
             self.isPlaying[ctx.guild.id] = False
@@ -200,6 +204,8 @@ class Music(commands.Cog):
         if self.voice_clients[ctx.guild.id] != None and self.isPlaying[ctx.guild.id] == True:
             self.voice_clients[ctx.guild.id].stop()
             await ctx.send('Skipped', ephemeral=True, delete_after=3)
+        else:
+            await ctx.send('Hippopotas is NOT singing', ephemeral=True, delete_after=3)
         
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
