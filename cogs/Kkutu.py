@@ -61,7 +61,10 @@ class Kkutu(commands.Cog):
                             if lines[0] == 'NONE':
                                 await ctx.reply('단어가 존재하지 않습니다')
                                 return 0
-                            output = [lines[i] for i in range(self.wordLimit)]
+                            if len(lines) < self.wordLimit:
+                                output = [lines[i] for i in range(len(lines))]
+                            else:
+                                output = [lines[i] for i in range(self.wordLimit)]
                             await ctx.reply(''.join(output))
                     except:
                         await ctx.reply('DB 준비중입니다.....')
