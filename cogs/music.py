@@ -38,7 +38,7 @@ class Music(commands.Cog):
         load_dotenv()
         self.yt_dl_options = {'format': 'bestaudio/best'}
         self.ytdl = yt_dlp.YoutubeDL(self.yt_dl_options)
-        self.ffmpeg_options = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5','options': '-vn -filter:a "volume=0.04"'}
+        self.ffmpeg_options = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5','options': '-vn -filter:a "volume=0.1"'}
         
         self.musicChannels = load_musicChannels()   # Uses musicChannels.json
         self.musicMessages = load_musicMessages()
@@ -99,7 +99,8 @@ class Music(commands.Cog):
             
             try:
                 self.voice_clients[ctx.guild.id].play(player, after=lambda e: asyncio.run_coroutine_threadsafe(self.play(ctx), self.bot.loop))
-            except:
+            except Exception as e:
+                print(e)
                 await ctx.channel.send(f'Error Occured while playing **{self.nowPlaying[ctx.guild.id]}**, Skipping to next song')
                 await self.play(ctx)
             
