@@ -220,6 +220,7 @@ class Music(commands.Cog):
                 self.isPlaying[member.guild.id] = False
                 self.nowPlaying[member.guild.id] = ''
                 self.voiceChannels[member.guild.id] = 0
+                self.voice_clients[member.guild.id].stop()
                 self.voice_clients[member.guild.id].cleanup()
                 await self.mainEmbed(member)
         
